@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Prepositions – Ball & Cube</title>
+<title>Prepositions – Ball & Box</title>
 
 <style>
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background:#eef2ff;
   display:flex;
   justify-content:center;
@@ -32,61 +32,61 @@ h1{margin:0}
 
 /* ===== SCENE ===== */
 .scene{
-  height:300px;
-  background:#f8f9ff;
+  height:280px;
+  background:#ffffff;
   border-radius:16px;
   position:relative;
-  perspective:800px;
   margin:12px 0;
 }
-.stage{
-  position:absolute;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
 
-/* TRANSPARENT CUBE */
-.cube{
+/* BOX – MISMA SIMBOLOGÍA QUE EL VÍDEO */
+.box{
   width:160px;
-  height:160px;
-  border:3px solid #4f46e5;
-  background:rgba(99,102,241,.08);
+  height:120px;
+  border:4px solid black;
+  background:white;
   position:absolute;
-  border-radius:8px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
 }
 
 /* BALL */
 .ball{
-  width:60px;
-  height:60px;
+  width:50px;
+  height:50px;
   border-radius:50%;
   background:#ef4444;
   position:absolute;
-  transition:all .4s ease;
+  transition:all .3s ease;
 }
 
-/* POSITIONS */
-.in{ transform:translateZ(0) scale(.8); }
-.on{ transform:translateY(-110px); }
-.under{ transform:translateY(110px); }
-.next{ transform:translateX(130px); }
-
+/* POSITIONS (CLARAS Y PLANAS) */
+.in{
+  left:50%; top:50%;
+  transform:translate(-50%,-50%) scale(.85);
+}
+.on{
+  left:50%; top:20%;
+  transform:translate(-50%,-50%);
+}
+.under{
+  left:50%; top:85%;
+  transform:translate(-50%,-50%);
+}
+.next{
+  left:85%; top:50%;
+  transform:translate(-50%,-50%);
+}
 .front{
-  transform:translateZ(120px) scale(1.3);
+  left:50%; top:55%;
+  transform:translate(-50%,-50%) scale(1.2);
 }
 .behind{
-  transform:translateZ(-120px) scale(.6);
-  opacity:.5;
+  left:50%; top:45%;
+  transform:translate(-50%,-50%) scale(.7);
+  opacity:.4;
 }
-
-/* BETWEEN */
-.cube.two{
-  transform:translateX(220px);
-  opacity:0;
-}
-.show{opacity:1}
 
 /* OPTIONS */
 .options{
@@ -106,9 +106,13 @@ h1{margin:0}
 .ok{background:#d1fae5;border-color:#16a34a}
 .bad{background:#fee2e2;border-color:#dc2626}
 
-.feedback{font-weight:bold;margin-top:8px}
+.feedback{
+  font-weight:bold;
+  margin-top:8px;
+  min-height:20px;
+}
 
-/* ===== PUPPY ===== */
+/* ===== PUPPY (ORIGINAL) ===== */
 .puppyStage{
   height:300px;
   display:flex;
@@ -189,11 +193,8 @@ h1{margin:0}
 <p class="sub">Look and choose the correct preposition</p>
 
 <div class="scene">
-  <div class="stage">
-    <div class="cube" id="cube1"></div>
-    <div class="cube two" id="cube2"></div>
-    <div class="ball in" id="ball"></div>
-  </div>
+  <div class="box"></div>
+  <div class="ball in" id="ball"></div>
 </div>
 
 <div class="options" id="options"></div>
@@ -227,7 +228,6 @@ const items=[
 ];
 
 const ball=document.getElementById("ball");
-const cube2=document.getElementById("cube2");
 const options=document.getElementById("options");
 const puppy=document.getElementById("puppy");
 const feedback=document.getElementById("feedback");
@@ -244,7 +244,6 @@ function beep(ok=true){
 function newQuestion(){
  puppy.className="puppy";
  feedback.textContent="";
- cube2.classList.remove("show");
 
  const correct=items[Math.floor(Math.random()*items.length)];
  ball.className="ball "+correct.c;
